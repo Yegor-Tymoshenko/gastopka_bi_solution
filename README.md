@@ -1,15 +1,22 @@
-# 🔥 Gastopka Analytics: Optimizing Sales & Logistics for a Family Business
+# 🔥 Gastopka Analytics: Optimalizace prodeje a logistiky pro rodinný podnik
 
 ![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
 
-## 👋 About the Project
-This is a real-world analytics project I built for my family's business, **Gastopka** (a supplier of industrial heating equipment).
+## 👋 O projektu
+Tento projekt jsem realizoval pro menší rodinnou firmu s cílem transformovat jejich syrová data v jasné byznysové argumenty. Celý proces zahrnoval sběr dat z roztříštěných zdrojů a jejich následné zpracování pomocí Power Query, PostgreSQL a prostředí Anaconda. Výsledkem je vyčištěný a plně funkční datový model připravený k analýze.
 
-Before this project, all data was messy and scattered across **1C (ERP system)** and multiple **Excel** files. We had no clear picture of our sales performance or inventory status.
+Firma se specializuje na komplexní řešení v oblasti plynového infračerveného vytápění pro průmyslové objekty, haly a sklady. Jde o mladý, agilní podnik založený v roce 2021, který si zakládá na efektivitě – funguje se třemi kmenovými specialisty a zbytek procesů řeší skrze prověřený outsourcing.
 
-**My Goal:** To clean the data, build a centralized database, and create a dashboard to help my father make a key decision: **"Do we need to rent a second warehouse in the South?"**
+**Můj cíl:**
+
+Aktuálně firma zvažuje expanzi v podobě druhého skladu na opačném konci města. Moje role spočívá v:
+
+Optimalizaci logistiky: Firma zvažuje akvizici druhého skladu na opačném konci města. Mou úlohou je analyzovat distribuci prodejů a vypočítat, zda úspory na přepravních nákladech v dlouhodobém horizontu převýší investici do nových prostor.
+
+Predikci poptávky pro import: Jelikož firma dováží technologii ze zahraničí, analyzuji prodejnost konkrétních modelů. Přesná data umožní realizovat větší velkoobchodní objednávky s předstihem, čímž firma dosáhne na lepší ceny a výrazně zefektivní nákupní proces.
+
 
 ---
 
