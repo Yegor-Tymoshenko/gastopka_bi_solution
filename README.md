@@ -20,40 +20,47 @@ Predikci poptávky pro import: Jelikož firma dováží technologii ze zahranič
 
 ---
 
-## 🛑 The Problems (Before)
-1.  **Messy Data:** Exports from 1C and Excel had different formats, "dirty" dates, and duplicates.
-2.  **Logistics Bottleneck:** We have only one warehouse in **Khimki (North)**. Shipping to Southern clients takes too long.
-3.  **Dead Stock:** We didn't know which products were just gathering dust in the warehouse and freezing money.
+## 🛑 Problémy (Původní stav)
+
+* **Datový chaos:** Exporty z 1C a Excelu měly nekonzistentní formáty, "špinavá" data a duplicity.
+* **Logistické úzké hrdlo:** Jeden centrální sklad (sever) nestačil pokrývat rostoucí poptávku na jihu, což prodlužovalo doručení.
+* **Mrtvé zásoby:** Chyběl přehled o produktech, které pouze zabíraly místo a vázaly kapitál bez generování zisku.
 
 ---
 
-## 🛠️ How I Solved It (Technical Workflow)
+## 🛠️ Tech Stack & Workflow
 
-### 1. Data Cleaning & Transformation (Power Query & Python)
-* **Power Query:** Used as the first layer of cleaning to standardize mixed date formats (text/timestamp) and filter raw data from 1C exports.
-* **Python Automation (Anaconda):** Generated and executed a Python script via **Anaconda** to create the `D_DATE` dimension table. I chose this approach to automate the routine work, which significantly **simplified the workflow and sped up** the data preparation process.
-* **Structure Preparation:** Standardized column names and types across all CSV files before loading them into the database.
+### 1. Čištění a transformace (Power Query & Python)
+* **Power Query:** Prvotní vrstva pro sjednocení datových typů a filtraci surových exportů z 1C.
+* **Python (Anaconda):** Automatizace rutinní práce. Vytvořil jsem skript pro generování dimenzionální tabulky `D_DATE`, což zrychlilo přípravu celého modelu.
+* **Standardizace:** Sjednocení struktury CSV souborů před importem do DB.
 
-### 2. Data Modeling & Storage (PostgreSQL)
-* **Star Schema Design:** Implemented a Constellation Model (Star Schema with shared dimensions) to optimize query performance.
-* **Data Warehousing:** Imported the cleaned data into **PostgreSQL**.
-* **Validation via SQL:** Executed key SQL queries to verify inventory accuracy and regional distribution before connecting the BI tool.
+### 2. Datové modelování (PostgreSQL)
+* **Architektura:** Implementace **Constellation Schema** (hvězdicové schéma se sdílenými dimenzemi) pro vysoký výkon dotazů.
+* **Validace:** SQL dotazy pro ověření integrity dat a skladových zásob před vizualizací.
 
-### 3. Visualization (Power BI)
-* **Data Modeling:** Established relationships between Fact and Dimension tables.
-* **DAX & UI:** Developed complex measures (YoY Growth, Profit Margin) and designed an interactive, user-friendly dashboard.
+### 3. Business Intelligence (Power BI)
+* **DAX:** Výpočet komplexních metrik jako **Year-over-Year (YoY) Growth** a **Profit Margin**.
+* **UI/UX:** Návrh intuitivního dashboardu pro okamžitý přehled o regionální poptávce a ziskovosti.
 
 ---
 
-## 📊 Key Insights & Results
+## 📊 Klíčová zjištění a výsledky
 
-### 1. The Warehouse Question
-* **Result:** The "Customer Analysis" dashboard showed that we have growing demand in the South.
-* **Decision:** The data supports the idea of opening a small transit hub in the South to speed up delivery.
+### 📍 Strategie skladování
+Analýza zákazníků potvrdila rostoucí trend poptávky v jižním segmentu. 
+> **Výsledek:** Data podpořila rozhodnutí o otevření nového tranzitního uzlu, což sníží náklady na logistiku a zrychlí expedici.
 
-### 2. Product Matrix (BCG)
-* **Result:** I built a Scatter Plot (Revenue vs. Margin). We found popular products that actually have **very low profit**.
-* **Decision:** Focus sales managers on selling high-margin equipment instead of just chasing volume.
+### 💰 Optimalizace portfolia (BCG Matice)
+Pomocí scatter plotu (Výnosy vs. Marže) byly identifikovány produkty s vysokým objemem prodejů, ale minimálním ziskem.
+> **Výsledek:** Strategické přesměrování obchodního týmu na prodej produktů s vysokou marží místo prostého honění obratu.
+
+---
+
+### Jak projekt spustit
+1. SQL skripty pro inicializaci PostgreSQL databáze najdete ve složce `/sql`.
+2. Python skript pro generování kalendářní dimenze je v `/scripts`.
+3. Power BI šablona (`.pbit`) je k dispozici v `/report`.
 
 ---
 
