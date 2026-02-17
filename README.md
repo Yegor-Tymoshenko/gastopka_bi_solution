@@ -140,12 +140,14 @@ LIMIT 10;
 </p>
 
 💡 Výsledek:
-Dotaz odhalil nejen bestsellery podle tržeb, ale díky sloupci avg_units_per_order i nákupní chování. Například u modelu "Bright Infrared Burner" vidíme průměr 2.0 kusy na objednávku, což indikuje silný B2B potenciál. Tyto data slouží nákupnímu oddělení k lepšímu vyjednávání s výrobcem.
+Dotaz odhalil nejen bestsellery podle tržeb, ale díky sloupci avg_units_per_order i nákupní chování. Tyto data slouží k lepšímu vyjednávání s výrobcem.
+
 ---
 🚀 Závěr SQL části
 V této fázi jsem úspěšně transformoval surová data do strukturované podoby a pomocí SQL ověřil klíčové business hypotézy. Máme tvrdá data, která potvrzují návratnost skladu i potenciál produktů.
 
-Samotné tabulky a SQL kód jsou ale pro manažery špatně čitelné. Abych tato zjištění "prodal" vedení firmy, bylo nutné je převést do srozumitelné vizuální podoby. Proto jsem připravená data napojil na Power BI.
+Dál jsem připravená data napojil na Power BI.
+
 ---
 
 ## 📷 Dashboard Screenshots
