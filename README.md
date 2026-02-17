@@ -8,14 +8,13 @@
 Tento projekt jsem realizoval pro menší rodinnou firmu s cílem transformovat jejich syrová data v jasné byznysové argumenty. Celý proces zahrnoval sběr dat z roztříštěných zdrojů a jejich následné zpracování pomocí Power Query, PostgreSQL a prostředí Anaconda. Výsledkem je vyčištěný a plně funkční datový model připravený k analýze.
 
 Firma se specializuje na komplexní řešení v oblasti plynového infračerveného vytápění pro průmyslové objekty, haly a sklady. Jde o mladý, agilní podnik založený v roce 2021, který si zakládá na efektivitě – funguje se třemi kmenovými specialisty a zbytek procesů řeší skrze prověřený outsourcing.
+[![Gastopka Logo](Logo.png)](https://gastopka.ru/)
 
 **Můj cíl:**
 
-Aktuálně firma zvažuje expanzi v podobě druhého skladu na opačném konci města. Moje role spočívá v:
+Logistika a nový sklad: firma řeší, jestli otevřít druhý sklad na jihu města. Pomocí dat jsem analyzoval, kde máme nejvíc zákazníků, a spočítal, jestli se nám nový sklad vyplatí. Hlavním cílem bylo zjistit, kolik ušetříme na dopravě a za jak dlouho ušetřené peníze pokryjí náklady na nájem a provoz.
 
-Optimalizaci logistiky: Firma zvažuje akvizici druhého skladu na opačném konci města. Mou úlohou je analyzovat distribuci prodejů a vypočítat, zda úspory na přepravních nákladech v dlouhodobém horizontu převýší investici do nových prostor.
-
-Predikci poptávky pro import: Jelikož firma dováží technologii ze zahraničí, analyzuji prodejnost konkrétních modelů. Přesná data umožní realizovat větší velkoobchodní objednávky s předstihem, čímž firma dosáhne na lepší ceny a výrazně zefektivní nákupní proces.
+Plánování nákupů: protože zboží dovážíme ze zahraničí, musíme vědět, co se reálně prodává. Sledoval jsem prodeje konkrétních modelů, abychom mohli dělat větší objednávky s předstihem. Díky přesným datům teď víme, co se vyplatí koupit ve velkém, abychom dostali lepší cenu a nákup byl efektivnější.
 
 
 ---
