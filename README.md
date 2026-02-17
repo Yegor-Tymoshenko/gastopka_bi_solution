@@ -7,7 +7,8 @@
 ## 👋 O projektu
 Tento projekt jsem realizoval pro menší rodinnou firmu s cílem transformovat jejich syrová data v jasné byznysové argumenty. Celý proces zahrnoval sběr dat z roztříštěných zdrojů a jejich následné zpracování pomocí Power Query, PostgreSQL a prostředí Anaconda. Výsledkem je vyčištěný a plně funkční datový model připravený k analýze.
 
-Firma se specializuje na komplexní řešení v oblasti plynového infračerveného vytápění pro průmyslové objekty, haly a sklady. Jde o mladý, agilní podnik založený v roce 2021, který si zakládá na efektivitě – funguje se třemi kmenovými specialisty a zbytek procesů řeší skrze prověřený outsourcing.
+Firma se specializuje na komplexní řešení v oblasti plynového infračerveného vytápění pro průmyslové objekty, haly a sklady. Jde o mladý, agilní podnik založený v roce 2021, který si zakládá na efektivitě, a funguje se třemi kmenovými specialisty a zbytek procesů řeší skrze prověřený outsourcing.
+
 [![Gastopka Logo](Logo.png)](https://gastopka.ru/)
 
 **Můj cíl:**
