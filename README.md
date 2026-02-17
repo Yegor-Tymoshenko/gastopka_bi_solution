@@ -68,7 +68,7 @@ Než jsem začal psát dotazy, definoval jsem si klíčové metriky pro vyhodnoc
 
 ### 🔍 Praktické ukázky SQL dotazů
 
-#### 1. Simulace návratnosti nového skladu (Payback Analysis)
+#### 1. Simulace návratnosti nového skladu
 Mým hlavním úkolem bylo zjistit, jestli se firmě vyplatí otevřít sklad na jihu. Napsal jsem komplexní dotaz s využitím **CTE (Common Table Expressions)**, kde jsem porovnal náklady na současnou dopravu oproti variantě s lokálním skladem.
 
 ```sql
@@ -102,15 +102,19 @@ SELECT
     as payback_period_months
 FROM Southern_Sales_Volume ssv, Logistics_Costs lc;
 ```
-💡 Výsledek:
-Analýza ukázala, že při současném objemu objednávek (83 za sledované období) by měsíční úspora na logistice činila cca 157 700 RUB. Po odečtení provozních nákladů nám vychází doba návratnosti investice na 13 měsíců. To je pro vedení signál, že projekt je bezpečný a životaschopný.
 
 <p align="center">
 <img src="PP_result.png" alt="PP_results.png" width="600">
 </p>
 
+💡 Výsledek:
+Analýza ukázala, že při současném objemu objednávek (83 za sledované období) by měsíční úspora na logistice činila cca 157 700. Po odečtení provozních nákladů nám vychází doba návratnosti investice na 13 měsíců. To je pro vedení signál, že projekt je bezpečný a 
+životaschopný.
+
+---
+
 2. Identifikace TOP produktů pro velkoobchod
-Dále jsem potřeboval zjistit, které produkty tvoří páteř našeho obratu a jak se nakupují. Cílem bylo vytipovat modely vhodné pro objemové slevy u dodavatelů.
+Dále jsem potřeboval zjistit, které produkty tvoří základ našeho obratu a jak se nakupují. Cílem bylo vytipovat modely vhodné pro objemové slevy u dodavatelů.
 
 ```SQL
 set search_path to gastopka_dw;
@@ -130,13 +134,14 @@ GROUP BY p.product_name, p.product_category
 ORDER BY total_units_sold DESC
 LIMIT 10;
 ```
-💡 Výsledek:
-Dotaz odhalil nejen bestsellery podle tržeb, ale díky sloupci avg_units_per_order i nákupní chování. Například u modelu "Bright Infrared Burner" vidíme průměr 2.0 kusy na objednávku, což indikuje silný B2B potenciál. Tyto data slouží nákupnímu oddělení k lepšímu vyjednávání s výrobcem.
 
 <p align="center">
-<img src="Top_10.png" alt="Top 10 Products SQL Result" width="800">
+<img src="Top_10_items.png" alt="Top 10 Products SQL Result" width="800">
 </p>
 
+💡 Výsledek:
+Dotaz odhalil nejen bestsellery podle tržeb, ale díky sloupci avg_units_per_order i nákupní chování. Například u modelu "Bright Infrared Burner" vidíme průměr 2.0 kusy na objednávku, což indikuje silný B2B potenciál. Tyto data slouží nákupnímu oddělení k lepšímu vyjednávání s výrobcem.
+---
 🚀 Závěr SQL části
 V této fázi jsem úspěšně transformoval surová data do strukturované podoby a pomocí SQL ověřil klíčové business hypotézy. Máme tvrdá data, která potvrzují návratnost skladu i potenciál produktů.
 
