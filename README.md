@@ -134,7 +134,7 @@ LIMIT 10;
 Dotaz odhalil nejen bestsellery podle tržeb, ale díky sloupci avg_units_per_order i nákupní chování. Například u modelu "Bright Infrared Burner" vidíme průměr 2.0 kusy na objednávku, což indikuje silný B2B potenciál. Tyto data slouží nákupnímu oddělení k lepšímu vyjednávání s výrobcem.
 
 <p align="center">
-<img src="Top_10_items.png" alt="Top 10 Products SQL Result" width="800">
+<img src="Top_10.png" alt="Top 10 Products SQL Result" width="800">
 </p>
 
 🚀 Závěr SQL části
