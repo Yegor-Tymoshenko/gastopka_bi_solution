@@ -106,7 +106,7 @@ FROM Southern_Sales_Volume ssv, Logistics_Costs lc;
 Analýza ukázala, že při současném objemu objednávek (83 za sledované období) by měsíční úspora na logistice činila cca 157 700 RUB. Po odečtení provozních nákladů nám vychází doba návratnosti investice na 13 měsíců. To je pro vedení signál, že projekt je bezpečný a životaschopný.
 
 <p align="center">
-<img src="PP_results.png" alt="PP_results.png" width="600">
+<img src="PP_result.png" alt="PP_results.png" width="600">
 </p>
 
 2. Identifikace TOP produktů pro velkoobchod
