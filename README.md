@@ -4,27 +4,24 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
 
-## 👋 O projektu
-Tento projekt jsem realizoval pro menší rodinnou firmu s cílem transformovat jejich syrová data v jasné byznysové argumenty. Celý proces zahrnoval sběr dat z roztříštěných zdrojů a jejich následné zpracování pomocí Power Query, PostgreSQL a prostředí Anaconda. Výsledkem je vyčištěný a plně funkční datový model připravený k analýze.
-
-Firma se specializuje na komplexní řešení v oblasti plynového infračerveného vytápění pro průmyslové objekty, haly a sklady. Jde o mladý, agilní podnik založený v roce 2021, který si zakládá na efektivitě, a funguje se třemi kmenovými specialisty a zbytek procesů řeší skrze prověřený outsourcing.
+## 📌 O projektu
+Gastopka je B2B firma mého otce, která už tři roky dodává průmyslovou topnou techniku. Firma rychle roste a aktuálně zvažuje expanzi. Zákaznická základna na jihu se zvětšuje a firemní databáze "studených" kontaktů ukazuje obrovský potenciál u regionálních podniků, které ještě nemají moderní systémy vytápění. Aby firma tento trh dokázala obsloužit a zkrátila dodací lhůty, řeší otevření druhého logistického skladu na jihu města. Vystupuji zde v roli externího datového analytika, který má vedení pomoci vybrat nejlepší variantu financování tohoto kroku.
 
 [![Gastopka Logo](Logo.png)](https://gastopka.ru/)
 
-**Můj cíl:**
+## 🎯 Můj cíl
+Hlavním úkolem je spočítat, za jakých podmínek a při jakých objemech prodejů dává jižní sklad finanční smysl. Jelikož je firma na trhu krátce a operuje s menším cash flow, banky jí v této fázi nechtějí poskytnout leasing na vybavení. Pro vedení proto modeluji a porovnávám reálné varianty klasického bankovního úvěru na 5 a 10 let. 
 
-Logistika a nový sklad: firma řeší, jestli otevřít druhý sklad na jihu města. Pomocí dat mám analyzovat, kde máme nejvíc zákazníků, a spočítat, jestli se nám nový sklad vyplatí. Hlavním cílem je zjistit, kolik ušetříme na dopravě a za jak dlouho ušetřené peníze pokryjí náklady na nájem a provoz.
-
-Plánování nákupů: protože zboží dovážíme ze zahraničí, musíme vědět, co se reálně prodává. Budu sledovat prodeje konkrétních modelů, abychom mohli dělat větší objednávky s předstihem. Díky přesným datům poznáme, co se vyplatí koupit ve velkém, abychom dostali lepší cenu a nákup byl efektivnější.
-
+Zároveň chci daty předejít chybám z minulosti. Pro nový sklad musím vybrat jen to zboží, které se bude reálně točit.
 
 ---
 
 ## 🛑 Problémy 
 
 * **Datový chaos:** Exporty z 1C, Excelu, papírových poznámek v diářích, Chatech atd. měly nekonzistentní formáty, "špinavá" data a duplicity.
-* **Logistické úzké hrdlo:** Jeden centrální sklad (sever) nestačil pokrývat rostoucí poptávku na jihu, což prodlužovalo doručení.
-* **Mrtvé zásoby:** Chyběl přehled o produktech, které pouze zabíraly místo a vázaly kapitál bez generování zisku.
+* **Přeplněný centrální sklad:** Aktuální sklad firmy je na hraně kapacity, z velké části kvůli naskladnění pozic, které se špatně prodávají a zbytečně blokují místo.
+* **Filtrování ležáků (Pareto 80/20):** Na nový sklad se nesmí převézt stejný problém. Pomocí SQL aplikuji pravidlo 80/20, abych přesně identifikoval nejprodávanější modely specificky pro jižní města. Na novou pobočku se naskladní výhradně tito prodejní lídři.
+* **Finanční zátěž a úvěr:** Vedení potřebuje znát přesný bod zvratu. Spočítal jsem měsíční splátky pro 5letý a 10letý horizont, abych ukázal, kolik kusů prémiového vybavení musí obchodníci na jihu měsíčně prodat (při využití velkoobchodní slevy od dodavatele), aby se úvěr i nájem bezpečně zaplatily z běžného provozu.
 
 ---
 
