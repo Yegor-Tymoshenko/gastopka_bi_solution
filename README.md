@@ -5,23 +5,32 @@
 ![SQL](https://img.shields.io/badge/SQL-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
 
 ## 📌 O projektu
-Gastopka je B2B firma mého otce, která už tři roky dodává průmyslovou topnou techniku. Firma rychle roste a aktuálně zvažuje expanzi. Zákaznická základna na jihu se zvětšuje a firemní databáze "studených" kontaktů ukazuje obrovský potenciál u regionálních podniků, které ještě nemají moderní systémy vytápění. Aby firma tento trh dokázala obsloužit a zkrátila dodací lhůty, řeší otevření druhého logistického skladu na jihu města. Vystupuji zde v roli externího datového analytika, který má vedení pomoci vybrat nejlepší variantu financování tohoto kroku.
+Krátká předmluva: toto je pouze mé portfolio pro pozici Junior Data Analyst. Jeho zvláštnost spočívá v poskytnuté mi příležitosti analyzovat reálná data vzatá z reálné firmy. Nebyl to freelance, protože firma patří mému otci a počet jejích kmenových zaměstnanců se nedávno zvýšil na 4. Jsou jí teprve 3 roky, na trhu s plynovým infračerveným vybavením se teprve upevnila, ale vykazuje stabilní plynulý růst.
+
+Protože jsem projevil iniciativu k uspořádání dat pro analýzu posledního, a nejúspěšnějšího, roku firmy, tak jsem si úkoly zčásti vymýšlel sám a zčásti dostával dotazy od zaměstnanců. To byla i moje první úloha – najít slabá místa, zákonitosti, predispozice. Poté byla provedena velká ETL práce, protože, jak se v malých firmách nezřídka stává, nesystematizují data „ideálně“. Potom přišlo na řadu SQL, které ukázalo první výsledky. Celý proces uzavírám tvorbou interaktivních reportů v Power BI.
 
 [![Gastopka Logo](Logo.png)](https://gastopka.ru/)
 
 ## 🎯 Můj cíl
-Hlavním úkolem je spočítat, za jakých podmínek a při jakých objemech prodejů dává jižní sklad finanční smysl. Jelikož je firma na trhu krátce a operuje s menším cash flow, banky jí v této fázi nechtějí poskytnout leasing na vybavení. Pro vedení proto modeluji a porovnávám reálné varianty klasického bankovního úvěru na 5 a 10 let. 
+V tomto projektu sleduji dva cíle. Prvním je pro mě, jakožto začínajícího analytika, získání praxe s reálnými daty a také s prezentací výsledků technickým specialistům i manažerovi.
 
-Zároveň chci daty předejít chybám z minulosti. Pro nový sklad musím vybrat jen to zboží, které se bude reálně točit.
+Druhým cílem je pak konkrétní požadavek firmy na rozšíření skladových prostor pro uskladnění vybavení. Aktuálně má firma jediný sklad na severu velkého města. Mým úkolem je prozkoumat podíl zákazníků z jižní části a sestavit seznam nejprodávanějších modelů ohřívačů. Jde o to, že v prvním skladu nedostatek místa způsobují i položky, na které se jen práší, a firma se chce podobnému scénáři u druhého skladu vyhnout.
 
 ---
 
 ## 🛑 Problémy 
 
-* **Datový chaos:** Exporty z 1C, Excelu, papírových poznámek v diářích, Chatech atd. měly nekonzistentní formáty, "špinavá" data a duplicity.
-* **Přeplněný centrální sklad:** Aktuální sklad firmy je na hraně kapacity, z velké části kvůli naskladnění pozic, které se špatně prodávají a zbytečně blokují místo.
-* **Filtrování ležáků (Pareto 80/20):** Na nový sklad se nesmí převézt stejný problém. Pomocí SQL aplikuji pravidlo 80/20, abych přesně identifikoval nejprodávanější modely specificky pro jižní města. Na novou pobočku se naskladní výhradně tito prodejní lídři.
-* **Finanční zátěž a úvěr:** Vedení potřebuje znát přesný bod zvratu. Spočítal jsem měsíční splátky pro 5letý a 10letý horizont, abych ukázal, kolik kusů prémiového vybavení musí obchodníci na jihu měsíčně prodat (při využití velkoobchodní slevy od dodavatele), aby se úvěr i nájem bezpečně zaplatily z běžného provozu.
+* **„Špinavá“ data a časově náročné ETL:**
+    * Data nebyla od začátku připravena pro analýzu.
+    * Největší část práce (a času) zabral proces **ETL (čištění a transformace)**, aby bylo možné SQL dotazy spouštět nad validními fakty.
+
+* **Absence segmentace:**
+    * Firma sice tušila, že jih má potenciál, ale chyběly tvrdé důkazy.
+    * Bylo nutné pomocí SQL vypreparovat fakta o prodejích, identifikovat top produkty a vypočítat reálný tržní podíl jižních zákazníků oproti severu.
+
+* **Hrozba neefektivního skladu:**
+    * Centrální sklad je zaplněn položkami, které se téměř neprodávají a blokují místo.
+    * Pro expanzi na jih je kritické uplatnit strategii **„Chytrého skladu“**, aby se nové prostory neproměnily v odkladiště prachu.
 
 ---
 
@@ -30,10 +39,10 @@ Zároveň chci daty předejít chybám z minulosti. Pro nový sklad musím vybra
 ### 1. Čištění a transformace (Power Query & Python)
 * **Power Query:** Prvotní vrstva pro sjednocení datových typů a filtraci surových exportů z 1C.
 * **Python (Anaconda):** Automatizace rutinní práce. Vytvořil jsem skript pro generování dimenzionální tabulky `D_DATE`, což zrychlilo přípravu celého modelu.
-* **Standardizace:** Sjednocení struktury CSV souborů před importem do DB.
+* **Příprava dat (ETL):** Před nahráním do pgAdmin 4 jsem musel sjednotit všechny CSV soubory, které měly odlišnou strukturu - někde se lišily názvy sloupců (třeba „Datum“ vs. „Date“), jinde byly odlišné formáty dat nebo čísel. Vše jsem upravil do jednoho standardu, aby import proběhl bez chyb a analýza vycházela z přesných a porovnatelných údajů.
 
 ### 2. Datové modelování (PostgreSQL)
-* **Architektura:** Implementace **Constellation Schema** (hvězdicové schéma se sdílenými dimenzemi) pro vysoký výkon dotazů.
+* **Architektura:** Implementace hvězdicové schémy se sdílenými dimenzemi pro vysoký výkon dotazů.
 * **Validace:** SQL dotazy pro ověření integrity dat a skladových zásob před vizualizací.
 
 ### 3. Business Intelligence (Power BI)
