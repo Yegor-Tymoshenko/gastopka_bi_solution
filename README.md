@@ -21,8 +21,7 @@ Druhým cílem je pak konkrétní požadavek firmy na rozšíření skladových 
 ## 🛑 Problémy 
 
 * **„Špinavá“ data a časově náročné ETL:**
-    * Data nebyla od začátku připravena pro analýzu.
-    * Největší část práce (a času) zabral proces **ETL (čištění a transformace)**, aby bylo možné SQL dotazy spouštět nad validními fakty.
+    * Největší část práce (a času) zabral proces ETL, aby bylo možné SQL dotazy spouštět nad validními fakty.
 
 * **Absence segmentace:**
     * Firma sice tušila, že jih má potenciál, ale chyběly tvrdé důkazy.
@@ -30,45 +29,69 @@ Druhým cílem je pak konkrétní požadavek firmy na rozšíření skladových 
 
 * **Hrozba neefektivního skladu:**
     * Centrální sklad je zaplněn položkami, které se téměř neprodávají a blokují místo.
-    * Pro expanzi na jih je kritické uplatnit strategii **„Chytrého skladu“**, aby se nové prostory neproměnily v odkladiště prachu.
+    * Pro rozšiření na jih je kritické aby se nové prostory neproměnily v odkladiště prachu.
 
 ---
 
 ## 🛠️ Tech Stack & Workflow
 
-### 1. Čištění a transformace (Power Query & Python)
-* **Power Query:** Prvotní vrstva pro sjednocení datových typů a filtraci surových exportů z 1C.
-* **Python (Anaconda):** Automatizace rutinní práce. Vytvořil jsem skript pro generování dimenzionální tabulky `D_DATE`, což zrychlilo přípravu celého modelu.
-* **Příprava dat (ETL):** Před nahráním do pgAdmin 4 jsem musel sjednotit všechny CSV soubory, které měly odlišnou strukturu - někde se lišily názvy sloupců (třeba „Datum“ vs. „Date“), jinde byly odlišné formáty dat nebo čísel. Vše jsem upravil do jednoho standardu, aby import proběhl bez chyb a analýza vycházela z přesných a porovnatelných údajů.
+Celý proces od surových dat až po finální report jsem rozdělil do tří logických fází, aby byla zajištěna maximální přesnost výsledků.
 
-### 2. Datové modelování (PostgreSQL)
-* **Architektura:** Implementace hvězdicové schémy se sdílenými dimenzemi pro vysoký výkon dotazů.
-* **Validace:** SQL dotazy pro ověření integrity dat a skladových zásob před vizualizací.
+### 1. Čištění a transformace (Power Query & Anaconda Prompt)
+* **Power Query:** Použil jsem jako prvotní vrstvu pro vyčištění surových exportů z 1C, sjednocení datových typů a odstranění duplicit.
+* **Python (Anaconda Prompt):** Pomohl mi s automatizací rutinní práce. Např. vytvořil jsem skript pro generování dimenzionální tabulky `D_DATE`.
+* **Standardizace dat (ETL):** Před nahráním do databáze jsem musel sjednotit všechny CSV soubory, které měly odlišnou strukturu, někde se lišily názvy sloupců (třeba "Datum" vs. "Date"), jinde byly odlišné formáty dat nebo čísel. Vše jsem upravil do jednoho standardu, aby import proběhl bez chyb a analýza vycházela z přesných a porovnatelných údajů.
+
+### 2. Datové modelování (PostgreSQL & pgAdmin 4)
+* **Galaxy Schema:** Implementoval jsem architekturu s více tabulkami faktů, které sdílejí společné dimenze (`D_PRODUCT`, `D_GEOGRAPHY`, `D_DATE`). Tento přístup umožňuje analyzovat firmu z různých úhlů pohledu.
+* **Struktura faktových tabulek:**
+    * `FACT_SALES_SERVICE`: Sleduje reálné tržby a výkonnost prodeje.
+    * `FACT_INVENTORY`: Slouží k monitoringu skladových zásob a identifikaci "mrtvých" položek.
+    * `FACT_PROJECTS`: Pro přehled statusu projektu.
 
 ### 3. Business Intelligence (Power BI)
-* **DAX:** Výpočet komplexních metrik jako **Year-over-Year (YoY) Growth** a **Profit Margin**.
-* **UI/UX:** Návrh intuitivního dashboardu pro okamžitý přehled o regionální poptávce a ziskovosti.
+* **Produktové a obchodní metriky:**
+    * **CR (Conversion Rate):** Sledování průchodnosti Sales Funnel z tabulky `FACT_PROJECTS` napříč fázemi *Calculation* $\rightarrow$ *Technical Project* $\rightarrow$ *Closed Won*.
+    * **AOV (Average Order Value):** Detailní srovnání průměrné hodnoty objednávky mezi aktuálním trhem a plánovaným jižním regionem.
+    * **Sales Cycle Length:** Výpočet průměrné doby od prvního výpočtu po finální prodej (využití časových razítek `start_date` a `end_date`). Ukazuje, jak rychle se firmě vrací investovaný čas obchodníků.
+    * **Lost Opportunity Cost (CAC proxy):** Kvantifikace utopených nákladů (čas inženýrů a obchoďáků) u zakázek, které skončily jako `Closed Lost`. Slouží jako argument, kolik peněz firmu stojí chybějící logistická infrastruktura na jihu města.
+
+* **Statistická analýza a distribuce dat:**
+    * **Pravidlo 20/80 (Pareto):** Dynamický DAX výpočet pro identifikaci skupiny produktů generujících 80 % tržeb na jihu, aby se zamezilo vzniku mrtvých zásob na novém skladu.
+    * **Gaussovo rozdělení a popisná statistika:** Analýza distribuce cen zakázek (AOV) s využitím **modu** (nejčastější hodnota), **mediánu** a **průměru**. Pomáhá identifikovat "typického" regionálního klienta očištěného o extrémně drahé průmyslové instalace. 
+    * **p-value:** T-test, zda je rozdíl v nákupním chování mezi severem a jihem statisticky významný ($p < 0,05$).
+
+* **UI/UX Design:** Dashboard je navržen tak, aby technicky nesmýšlejícímu vedení poskytl okamžitý a srozumitelný přehled o regionální poptávce, úzkých hrdlech v prodejním procesu a prioritním zboží pro naskladnění nového hubu.
 
 ---
-## 🛠️ Datové modelování a SQL analýza (PostgreSQL)
+## 🛠️ Datové modelování a SQL (PostgreSQL)
 
-Získaná a vyčištěná data jsem importoval do předem připravených tabulek. Vztahy mezi nimi tvoří architekturu tzv. Galaxy Schema. 
-
-Tento přístup mi umožnil propojit různé oblasti podnikání (prodeje, sklad, projekty) přes sdílené dimenze a vytvořit základ pro reporting.
+Základem analytického modelu je čistá databázová architektura. Stojí na třech hlavních tabulkách faktů, které přes sdílené dimenze spojují všechny obchodní procesy do jednoho funkčního celku.
 
 ![ERD](Galaxy.png)
 
-### 📐 Použitá ekonomická metodika
-Než jsem začal psát dotazy, definoval jsem si klíčové metriky pro vyhodnocení efektivity skladu. Aby měla čísla v reportech reálnou váhu, opíral jsem se o tyto vzorce:
+### 📐 Použité produktové a analytické metriky
+Při vyhodnocování dat jsem analýzu postavil na těchto konkrétních výpočtech a statistických ukazatelích:
 
-* **Doba návratnosti (Payback Period):**
-    $$PP = \frac{\text{Počáteční investice}}{\text{Měsíční úspora na logistice} - \text{Měsíční provozní náklady}}$$
+* **Produktové a obchodní metriky:**
+    * **CR (Conversion Rate):** Sledování průchodnosti obchodního trychtýře z tabulky `FACT_PROJECTS`.
+      $$CR = \frac{\text{Počet projektů 'Closed Won'}}{\text{Celkový počet projektů ('Calculation')}} \times 100$$
+    * **AOV (Average Order Value):** Detailní srovnání průměrné hodnoty objednávky (Sever vs. Jih).
+      $$AOV = \frac{\sum \text{Total Revenue}}{\text{Počet unikátních objednávek}}$$
+    * **Sales Cycle Length:** Ukazuje, jak rychle se firmě vrací investovaný čas obchodníků.
+      $$\text{Cycle Length} = \frac{\sum (\text{End Date} - \text{Start Date})}{\text{Počet projektů 'Closed Won'}}$$
+    * **Lost Opportunity Cost (CAC proxy):** Kvantifikace utopených nákladů (čas inženýrů a obchoďáků), pokud chybí logistická infrastruktura.
+      $$LOC = \sum \text{Actual Cost} \quad \text{[pro status = 'Closed Lost']}$$
 
-* **Návratnost investic (ROI):**
-    $$ROI = \frac{(\text{Celková úspora} - \text{Celkové náklady})}{\text{Investice}} \times 100\%$$
-
-* **Bod zvratu:**
-    $$Q_{BE} = \frac{\text{Fixní náklady skladu}}{\text{Marže na 1 objednávku}}$$
+* **Statistická analýza a distribuce dat:**
+    * **Pravidlo 20/80 (Pareto pro Smart Stock):** Dynamický výpočet úzké skupiny produktů generujících většinu tržeb.
+      $$\text{Pareto Ratio} = \frac{\sum \text{Tržby z Top 20 \% produktů}}{\text{Celkové tržby}} \approx 0,80$$
+    * **Popisná statistika (Gaussovo rozdělení):** Analýza distribuce cen zakázek pro identifikaci typického regionálního klienta, očištěno o extrémní instalace.
+      * Průměr: $\mu = \frac{1}{n}\sum x_i$
+      * Medián: $\tilde{x}$ (prostřední hodnota seřazeného datasetu)
+      * Modus: $\hat{x}$ (nejčastější hodnota)
+    * **Ověření hypotéz (p-value):** Statistické potvrzení T-testem, zda je rozdíl v chování regionů významný, nebo jde o šum.
+      $$t = \frac{\bar{x}_S - \bar{x}_J}{\sqrt{\frac{s_S^2}{n_S} + \frac{s_J^2}{n_J}}}, \quad \text{kde } p < 0,05$$
 
 ---
 
