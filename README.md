@@ -79,7 +79,7 @@ ADD CONSTRAINT fk_sales_partner FOREIGN KEY (partner_key) REFERENCES "D_PARTNER"
   <summary><b>View SQL: Market Segmentation & Top 3 Products (Southern Region)</b></summary>
   
 ```sql
--- Using Window Functions to identify the Top 3 products for each business segment in the South to define the "Smart Stock"
+-- Top 3 products for each business segment in the South to define the "Smart Stock"
 WITH RankedProducts AS (
     SELECT 
         c.client_segment,
@@ -103,10 +103,11 @@ WHERE product_rank <= 3;
 </details>
 
 ---
-🚀 Závěr SQL části
-V této fázi jsem úspěšně transformoval surová data do strukturované podoby a pomocí SQL ověřil klíčové business hypotézy. Máme tvrdá data, která potvrzují návratnost skladu i potenciál produktů.
+🚀 SQL Result
+SQL transformed raw data into a structured Galaxy Schema. PostgreSQL was used for data cleaning (orphan keys), joining tables, and ranking products. This ensures a single source of truth for the BI layer.
 
-Dál jsem připravená data napojil na Power BI.
+Below is the query output for the Top 3 "Smart Stock" models by segment in the Southern region:
+![ERD](Top_3_by_sector.png)
 
 ---
 
