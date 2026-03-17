@@ -53,7 +53,7 @@ I implemented a **Galaxy Schema**. This structure connects three primary fact ta
 
 The database naturally maps the entire customer journey: from the initial inquiry (`FACT_PROJECTS`), through the successful transaction (`FACT_SALES_SERVICE`), to the physical movement of goods (`FACT_INVENTORY`).
 
-![ERD](Galaxy.png)
+![ERD](SQL/Galaxy.png)
 
 <details>
   <summary><b>View SQL: Data Modeling & FKeys Connection</b></summary>
@@ -107,7 +107,7 @@ WHERE product_rank <= 3;
 SQL transformed raw data into a structured Galaxy Schema. PostgreSQL was used for data cleaning (orphan keys), joining tables, and ranking products. This ensures a single source of truth for the BI layer.
 
 Below is the query output for the Top 3 "Smart Stock" models by segment in the Southern region:
-![TOP3](Top_3_by_sector.png)
+![TOP3](Power_BI/Top_3_by_sector.png)
 
 ---
 
