@@ -103,24 +103,21 @@ WHERE product_rank <= 3;
 </details>
 
 ---
-🚀 SQL Result
+## 🚀 SQL Result
 SQL transformed raw data into a structured Galaxy Schema. PostgreSQL was used for data cleaning (orphan keys), joining tables, and ranking products. This ensures a single source of truth for the BI layer.
 
 Below is the query output for the Top 3 "Smart Stock" models by segment in the Southern region:
-![ERD](Top_3_by_sector.png)
+![TOP3](Top_3_by_sector.png)
 
 ---
 
 ## 📷 Dashboard Screenshots
 
-### Executive Overview
-![Overview](Sales&Margin.png)
+### 📊 B2B Sales Performance: Metrics & Funnel Analysis
+The dashboard analysis recorded €4.90M in revenue from 114 closed deals with a consistently high average order value of €43.02K. The primary driver is the Industrial sector with an 80.85% conversion rate (38 successful deals out of 47 leads), making it the most reliable area for scaling. However, the overall conversion rate of 70.37% appears anomalously high: due to the company's small size, some deals that fell through at early stages were simply not logged into the database, meaning the actual churn rate is noticeably higher than the 43 recorded lost deals.
 
-### Product Matrix
-![Product Matrix](Product_Matrix.png)
+![B2B Sales Performance Dashboard](Sales_Funnel_By_Sectors.png)
 
-### Regional Analysis
-![Regions](Customer_analysis.png)
+Against this backdrop, the Commercial sector generates the most activity (54 leads) but closes below average (66.67%), burning through sales reps' time, while the Agricultural sector lags the most at 58.97%. Moving forward, the strategy requires implementing strict tracking discipline for all incoming leads and loss reasons to ensure a transparent funnel, calculating the complete sales cycle for accurate cash flow forecasting, and reallocating team resources from the underperforming agricultural sector to the highly profitable industrial one.
 
----
-*Note: Client names and specific financial figures have been anonymized for privacy.*
+
