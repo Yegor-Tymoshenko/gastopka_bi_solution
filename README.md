@@ -1,165 +1,123 @@
-# 🔥 Gastopka Analytics: Optimalizace prodeje a logistiky pro rodinný podnik
+# 🔥 Gastopka Analytics: Sales & Logistics Optimization Case Study
 
-![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
 
-## 👋 O projektu
-Tento projekt jsem realizoval pro menší rodinnou firmu s cílem transformovat jejich syrová data v jasné byznysové argumenty. Celý proces zahrnoval sběr dat z roztříštěných zdrojů a jejich následné zpracování pomocí Power Query, PostgreSQL a prostředí Anaconda. Výsledkem je vyčištěný a plně funkční datový model připravený k analýze.
+## 📌 About the Project
+Short preface: This is my portfolio for a Junior Data Analyst position. Its unique value lies in the opportunity I had to analyze real data from an actual company. It wasn't a freelance gig - the company belongs to my father and its core team recently grew to 4 employees. The company is only 3 years old and has just established its position in the gas infrared equipment market, showing stable and steady growth.
 
-Firma se specializuje na komplexní řešení v oblasti plynového infračerveného vytápění pro průmyslové objekty, haly a sklady. Jde o mladý, agilní podnik založený v roce 2021, který si zakládá na efektivitě, a funguje se třemi kmenovými specialisty a zbytek procesů řeší skrze prověřený outsourcing.
+I took the initiative to organize the data for analyzing the company's latest (and most successful) year. This was followed by extensive ETL work because data systematization was far from "ideal." Next came the SQL phase, which delivered the first results, and I am closing the entire process by building interactive reports in Power BI.
 
 [![Gastopka Logo](Logo.png)](https://gastopka.ru/)
 
-**Můj cíl:**
+## 🎯Project Objectives
+The goal is to address a specific business requirement: the strategic expansion of warehouse space in the South. Currently, the company operates a single warehouse in the North of a city, where space constraints are partly caused by items just gathering dust. My task is to:
 
-Logistika a nový sklad: firma řeší, jestli otevřít druhý sklad na jihu města. Pomocí dat mám analyzovat, kde máme nejvíc zákazníků, a spočítat, jestli se nám nový sklad vyplatí. Hlavním cílem je zjistit, kolik ušetříme na dopravě a za jak dlouho ušetřené peníze pokryjí náklady na nájem a provoz.
+* **Segmentation and Preferences:** Identify the prevalent types of businesses in the South (e.g., agricultural, industrial) and map their purchasing behavior across all regions.
+* **Smart Stock:** Based on these preferences, filter out the absolute top-selling models that will exclusively populate the new warehouse.
+* **Financial Optimization:** Calculate the actual savings from placing a bulk wholesale order for these top models directly with the manufacturer, and quantify the reduction in logistics costs.
+* **Applied Metrics:** The entire decision-making process for the expansion is built on exact numbers. To achieve this, I utilize metrics such as **CR** (Conversion Rate), **AOV** (Average Order Value), **Sales Cycle Length**, **Lost Opportunity Cost** (CAC proxy), the **Pareto Principle (80/20)** for inventory optimization, **Gaussian distribution** to understand revenue spread, and **p-value** to statistically verify demand hypotheses.
+---
 
-Plánování nákupů: protože zboží dovážíme ze zahraničí, musíme vědět, co se reálně prodává. Budu sledovat prodeje konkrétních modelů, abychom mohli dělat větší objednávky s předstihem. Díky přesným datům poznáme, co se vyplatí koupit ve velkém, abychom dostali lepší cenu a nákup byl efektivnější.
+## 🛑 Problems 
 
+* **Fragmented Data:** Records were scattered across CSV files and Excel sheets. Cross-analyzing sales, inventory, and projects was impossible.
+
+* **"Dead Stock" Accumulation:** Purchasing was based on intuition. The Northern warehouse was filled with slow-moving items gathering dust, taking up valuable space.
+
+* **Zero Metric Tracking:** There was no tracking of the Sales Funnel, Average Order Value, or the financial impact of deals lost due to long delivery times to the South (Lost Opportunity Cost).
 
 ---
 
-## 🛑 Problémy 
+## 📋 Methodology
 
-* **Datový chaos:** Exporty z 1C, Excelu, papírových poznámek v diářích, Chatech atd. měly nekonzistentní formáty, "špinavá" data a duplicity.
-* **Logistické úzké hrdlo:** Jeden centrální sklad (sever) nestačil pokrývat rostoucí poptávku na jihu, což prodlužovalo doručení.
-* **Mrtvé zásoby:** Chyběl přehled o produktech, které pouze zabíraly místo a vázaly kapitál bez generování zisku.
 
----
+#### 1. Extract, clean, and transform scattered CSV and Excel data into a centralized relational database (Galaxy Schema) using PostgreSQL.
 
-## 🛠️ Tech Stack & Workflow
+#### 2. Build an interactive dashboard in Power BI to track regional sales performance, monitor the B2B sales funnel, and visualize key metrics like CR and AOV.
 
-### 1. Čištění a transformace (Power Query & Python)
-* **Power Query:** Prvotní vrstva pro sjednocení datových typů a filtraci surových exportů z 1C.
-* **Python (Anaconda):** Automatizace rutinní práce. Vytvořil jsem skript pro generování dimenzionální tabulky `D_DATE`, což zrychlilo přípravu celého modelu.
-* **Standardizace:** Sjednocení struktury CSV souborů před importem do DB.
-
-### 2. Datové modelování (PostgreSQL)
-* **Architektura:** Implementace **Constellation Schema** (hvězdicové schéma se sdílenými dimenzemi) pro vysoký výkon dotazů.
-* **Validace:** SQL dotazy pro ověření integrity dat a skladových zásob před vizualizací.
-
-### 3. Business Intelligence (Power BI)
-* **DAX:** Výpočet komplexních metrik jako **Year-over-Year (YoY) Growth** a **Profit Margin**.
-* **UI/UX:** Návrh intuitivního dashboardu pro okamžitý přehled o regionální poptávce a ziskovosti.
+#### 3. Conduct advanced analysis using DAX formulas to identify the "Smart Stock" (Pareto 80/20 rule), simulate wholesale discount savings, and calculate logistics efficiency for the new Southern hub.
 
 ---
-## 🛠️ Datové modelování a SQL analýza (PostgreSQL)
+## 🛠️ Skills & Technologies Used
 
-Získaná a vyčištěná data jsem importoval do předem připravených tabulek. Vztahy mezi nimi tvoří architekturu tzv. Galaxy Schema. 
+* **SQL (PostgreSQL):** Galaxy Schema design, Relational data modeling, CTEs, Joins, DDL/DML, Aggregate functions.
+* **Power BI:** DAX (advanced measures, CALCULATE, TOPN, Variables), Data Modeling, "What-If" parameters, Interactive data visualization.
+* **Python (Anaconda):** Pandas, Data extraction, cleaning, and transformation.
+* **Data Analysis & Statistics:** Pareto Principle (80/20 rule), Descriptive statistics (Gaussian distribution), Hypothesis testing (T-test, p-value), B2B Sales Funnel analysis, Unit Economics (CR, AOV, LOC).
 
-Tento přístup mi umožnil propojit různé oblasti podnikání (prodeje, sklad, projekty) přes sdílené dimenze a vytvořit základ pro reporting.
+---
+## 🛠️ Data Modeling & SQL (PostgreSQL)
+
+I implemented a **Galaxy Schema**. This structure connects three primary fact tables through shared dimensions (Time, Geography, Clients, etc.).
+
+The database naturally maps the entire customer journey: from the initial inquiry (`FACT_PROJECTS`), through the successful transaction (`FACT_SALES_SERVICE`), to the physical movement of goods (`FACT_INVENTORY`).
 
 ![ERD](Galaxy.png)
 
-### 📐 Použitá ekonomická metodika
-Než jsem začal psát dotazy, definoval jsem si klíčové metriky pro vyhodnocení efektivity skladu. Aby měla čísla v reportech reálnou váhu, opíral jsem se o tyto vzorce:
-
-* **Doba návratnosti (Payback Period):**
-    $$PP = \frac{\text{Počáteční investice}}{\text{Měsíční úspora na logistice} - \text{Měsíční provozní náklady}}$$
-
-* **Návratnost investic (ROI):**
-    $$ROI = \frac{(\text{Celková úspora} - \text{Celkové náklady})}{\text{Investice}} \times 100\%$$
-
-* **Bod zvratu:**
-    $$Q_{BE} = \frac{\text{Fixní náklady skladu}}{\text{Marže na 1 objednávku}}$$
-
----
-
-### 🔍 Praktické ukázky SQL dotazů
-
-#### 1. Simulace návratnosti nového skladu
-Mým hlavním úkolem bylo zjistit, jestli se firmě vyplatí otevřít sklad na jihu. Napsal jsem komplexní dotaz s využitím **CTE (Common Table Expressions)**, kde jsem porovnal náklady na současnou dopravu oproti variantě s lokálním skladem.
-
+<details>
+  <summary><b>View SQL: Data Modeling & FKeys Connection</b></summary>
+  
 ```sql
-set search_path to gastopka_dw;
+-- Cleaning "empty keys" before establishing strict relationships (protecting against dirty 1C/CSV data)
+-- Example for geography dimension
+UPDATE "FACT_SALES_SERVICE"
+SET geography_key = (SELECT geography_key FROM "D_GEOGRAPHY" LIMIT 1)
+WHERE geography_key NOT IN (SELECT geography_key FROM "D_GEOGRAPHY");
 
-
-WITH Logistics_Costs as (
-    SELECT
-        3800 as cost_per_delivery_north_to_south,   -- náklady na současnou dopravu na jih ze skladu
-        1900 as cost_per_delivery_from_south,       -- náklady na potenciální dopravu z jižního skladu
-        1000000 as warehouse_setup_cost,            -- počáteční náklady na pronájem, rekonstrukci a vybavení
-        84000 as monthly_op_cost                    -- měsíční nájemné a mzdové náklady na skladníka
-),
-
-Southern_Sales_Volume as (
-    SELECT
-        COUNT(fs.sales_id) as total_orders,
-        SUM(fs.cost_amount) as total_revenue
-    FROM "FACT_SALES_SERVICE" fs
-    JOIN "D_GEOGRAPHY" dg ON fs.geography_key = dg.geography_key
-    WHERE dg.city in ('Podolsk', 'Tula', 'Novomoskovsk', 'Skopin', 'Ryazan', 'Murom', 'Kasimov', 'Lyubertsy') -- města se zákazníky na jihu
+-- Building the Galaxy Schema architecture
+ALTER TABLE "FACT_SALES_SERVICE"
+ADD CONSTRAINT fk_sales_date FOREIGN KEY (date_key) REFERENCES "D_DATE" (date_key),
+ADD CONSTRAINT fk_sales_product FOREIGN KEY (product_key) REFERENCES "D_PRODUCT" (product_key),
+ADD CONSTRAINT fk_sales_client FOREIGN KEY (client_key) REFERENCES "D_CLIENT" (client_key),
+ADD CONSTRAINT fk_sales_manager FOREIGN KEY (manager_key) REFERENCES "D_MANAGER" (manager_key),
+ADD CONSTRAINT fk_sales_geography FOREIGN KEY (geography_key) REFERENCES "D_GEOGRAPHY" (geography_key),
+ADD CONSTRAINT fk_sales_partner FOREIGN KEY (partner_key) REFERENCES "D_PARTNER" (partner_key);
+```
+</details>
+<details>
+  <summary><b>View SQL: Market Segmentation & Top 3 Products (Southern Region)</b></summary>
+  
+```sql
+-- Top 3 products for each business segment in the South to define the "Smart Stock"
+WITH RankedProducts AS (
+    SELECT 
+        c.client_segment,
+        p.product_name,
+        SUM(s.total_revenue) AS sector_revenue,
+        ROW_NUMBER() OVER(PARTITION BY c.client_segment ORDER BY SUM(s.total_revenue) DESC) as product_rank
+    FROM "FACT_SALES_SERVICE" s
+    JOIN "D_CLIENT" c ON s.client_key = c.client_key
+    JOIN "D_PRODUCT" p ON s.product_key = p.product_key
+    JOIN "D_GEOGRAPHY" g ON s.geography_key = g.geography_key
+    WHERE g.region = 'South'
+    GROUP BY c.client_segment, p.product_name
 )
-
--- výpočet logistických úspor (rozdíl mezi současnou a budoucí dopravou)
-SELECT
-    ssv.total_orders,
-    ssv.total_revenue,
-    ssv.total_orders * (lc.cost_per_delivery_north_to_south - lc.cost_per_delivery_from_south) as monthly_logistics_savings,
-    lc.warehouse_setup_cost /
-    ((ssv.total_orders * (lc.cost_per_delivery_north_to_south - lc.cost_per_delivery_from_south)) - lc.monthly_op_cost) -- vzorec pro dobu návratnosti (Payback Period)
-    as payback_period_months
-FROM Southern_Sales_Volume ssv, Logistics_Costs lc;
+SELECT 
+    client_segment,
+    product_name,
+    sector_revenue
+FROM RankedProducts
+WHERE product_rank <= 3;
 ```
-
-<p align="center">
-<img src="PP_result.png" alt="PP_results.png" width="600">
-</p>
-
-💡 Výsledek:
-Analýza ukázala, že při současném objemu objednávek (83 za sledované období) by měsíční úspora na logistice činila cca 157 700. Po odečtení provozních nákladů nám vychází doba návratnosti investice na 13 měsíců. To je pro vedení signál, že projekt je bezpečný a 
-životaschopný.
+</details>
 
 ---
+## 🚀 SQL Result
+SQL transformed raw data into a structured Galaxy Schema. PostgreSQL was used for data cleaning (orphan keys), joining tables, and ranking products. This ensures a single source of truth for the BI layer.
 
-2. Identifikace TOP produktů pro velkoobchod
-Dále jsem potřeboval zjistit, které produkty tvoří základ našeho obratu a jak se nakupují. Cílem bylo vytipovat modely vhodné pro objemové slevy u dodavatelů.
-
-```SQL
-set search_path to gastopka_dw;
-
-SELECT
-    p.product_name,
-    p.product_category,
-    -- celkové množství prodaných kusů
-    SUM(f.quantity_sold) as total_units_sold,
-    -- celkové hrubé tržby za daný model
-    ROUND(SUM(f.total_revenue), 2) as total_gross_revenue,
-    -- průměrný počet kusů v jedné objednávce
-    ROUND(AVG(f.quantity_sold), 1) as avg_units_per_order
-FROM "FACT_SALES_SERVICE" f
-JOIN "D_PRODUCT" p ON f.product_key = p.product_key
-GROUP BY p.product_name, p.product_category
-ORDER BY total_units_sold DESC
-LIMIT 10;
-```
-
-<p align="center">
-<img src="Top_10_items.png" alt="Top 10 Products SQL Result" width="800">
-</p>
-
-💡 Výsledek:
-Dotaz odhalil nejen bestsellery podle tržeb, ale díky sloupci avg_units_per_order i nákupní chování. Tyto data slouží k lepšímu vyjednávání s výrobcem.
-
----
-🚀 Závěr SQL části
-V této fázi jsem úspěšně transformoval surová data do strukturované podoby a pomocí SQL ověřil klíčové business hypotézy. Máme tvrdá data, která potvrzují návratnost skladu i potenciál produktů.
-
-Dál jsem připravená data napojil na Power BI.
+Below is the query output for the Top 3 "Smart Stock" models by segment in the Southern region:
+![TOP3](Top_3_by_sector.png)
 
 ---
 
 ## 📷 Dashboard Screenshots
 
-### Executive Overview
-![Overview](Sales&Margin.png)
+### 📊 B2B Sales Performance: Metrics & Funnel Analysis
+The dashboard analysis recorded €4.90M in revenue from 114 closed deals with a consistently high average order value of €43.02K. The primary driver is the Industrial sector with an 80.85% conversion rate (38 successful deals out of 47 leads), making it the most reliable area for scaling. However, the overall conversion rate of 70.37% appears anomalously high: due to the company's small size, some deals that fell through at early stages were simply not logged into the database, meaning the actual churn rate is noticeably higher than the 43 recorded lost deals.
 
-### Product Matrix
-![Product Matrix](Product_Matrix.png)
+![B2B Sales Performance Dashboard](Sales_Funnel_By_Sectors.png)
 
-### Regional Analysis
-![Regions](Customer_analysis.png)
+Against this backdrop, the Commercial sector generates the most activity (54 leads) but closes below average (66.67%), burning through sales reps' time, while the Agricultural sector lags the most at 58.97%. Moving forward, the strategy requires implementing strict tracking discipline for all incoming leads and loss reasons to ensure a transparent funnel, calculating the complete sales cycle for accurate cash flow forecasting, and reallocating team resources from the underperforming agricultural sector to the highly profitable industrial one.
 
----
-*Note: Client names and specific financial figures have been anonymized for privacy.*
+
